@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>灯 LUMIK · Artisanat japonais</title>
+    <!-- Font Awesome 6 (gratuit) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #faf8f5;
+            color: #1e1b18;
+            line-height: 1.5;
+            padding: 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
+            padding: 2rem 2rem 3rem;
+        }
+
+        /* --- Bannière promo --- */
+        .promo-banner {
+            background: #1e1b18;
+            color: #f0ebe3;
+            font-size: 0.85rem;
+            letter-spacing: 0.02em;
+            padding: 0.6rem 1.5rem;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 1.75rem;
+            font-weight: 450;
+        }
+        .promo-banner i {
+            margin-right: 0.5rem;
+            color: #d4c5b2;
+        }
+
+        /* --- En-tête --- */
+        .header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            border-bottom: 1px solid #ece6de;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+        }
+        .logo h1 span {
+            font-weight: 300;
+            color: #7f6e5d;
+        }
+        .logo .sub {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #7f6e5d;
+            margin-top: 0.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            font-size: 0.95rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #1e1b18;
+            font-weight: 450;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: #a67c52;
+        }
+        .nav-links .cart-icon {
+            font-size: 1.3rem;
+            position: relative;
+        }
+
+        /* --- Grille valeurs --- */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            background: #f6f2ec;
+            border-radius: 1.5rem;
+            padding: 1.75rem 2rem;
+            margin-bottom: 2.5rem;
+        }
+        .value-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+        }
+        .value-item i {
+            font-size: 1.6rem;
+            color: #a67c52;
+            width: 2rem;
+            text-align: center;
+        }
+        .value-item strong {
+            font-weight: 600;
+        }
+
+        /* --- Grille catalogue (mini) --- */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 450;
+            letter-spacing: 0.02em;
+            margin: 2.5rem 0 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .section-title a {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #a67c52;
+            text-decoration: none;
+            margin-left: auto;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+        .catalog-card {
+            background: #faf8f5;
+            border-radius: 1.25rem;
+            padding: 1.25rem 1rem 1rem;
+            text-align: center;
+            transition: 0.15s;
+            border: 1px solid transparent;
+        }
+        .catalog-card:hover {
+            border-color: #dcd3c8;
+            background: #f8f3ed;
+        }
+        .catalog-card .emoji-big {
+            font-size: 2.6rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+        .catalog-card h4 {
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        .catalog-card .origin {
+            font-size: 0.8rem;
+            color: #7f6e5d;
+            letter-spacing: 0.03em;
+        }
+        .catalog-card .tag {
+            display: inline-block;
+            background: #e8e0d7;
+            font-size: 0.7rem;
+            padding: 0.15rem 0.8rem;
+            border-radius: 100px;
+            margin-top: 0.5rem;
+            color: #3d352e;
+        }
+
+        /* --- Panier (mini) --- */
+        .cart-panel {
+            background: #f6f2ec;
+            border-radius: 1.5rem;
+            padding: 1.5rem 2rem;
+            margin: 2.5rem 0 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .cart-panel .cart-empty {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .cart-panel .cart-empty i {
+            font-size: 1.6rem;
+            color: #a67c52;
+        }
+        .cart-panel .cart-total {
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        .btn-whatsapp {
+            background: #1e1b18;
+            color: white;
+            border: none;
+            padding: 0.7rem 2rem;
+            border-radius: 100px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .btn-whatsapp i {
+            font-size: 1.2rem;
+        }
+        .btn-whatsapp:hover {
+            background: #3d352e;
+        }
+
+        /* --- Footer --- */
+        .footer-note {
+            margin-top: 3rem;
+            border-top: 1px solid #ece6de;
+            padding-top: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #7f6e5d;
+        }
+        .footer-note .city-badge {
+            display: flex;
+            gap: 1.2rem;
+        }
+        .footer-note .city-badge span {
+            background: #f0ebe3;
+            padding: 0.2rem 1rem;
+            border-radius: 100px;
+        }
+
+        /* --- responsive --- */
+        @media (max-width: 720px) {
+            .header {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: flex-start;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1.2rem;
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            .cart-panel {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .btn-whatsapp {
+                width: 100%;
+                justify-content: center;
+            }
+            .container {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Bannière livraison -->
+    <div class="promo-banner">
+        <i class="fas fa-truck"></i> LIVRAISON OFFERTE DÈS 50€ · DIRECT DES ATELIERS DU JAPON
+    </div>
+
+    <!-- En-tête -->
+    <header class="header">
+        <div class="logo">
+            <h1>灯 <span>LUMIK</span></h1>
+            <div class="sub">Catalogue · La maison · 灯をともす</div>
+        </div>
+        <div class="nav-links">
+            <a href="#">Catalogue</a>
+            <a href="#">La maison</a>
+            <a href="#" class="cart-icon"><i class="fas fa-shopping-bag"></i> <span style="font-size:0.75rem; font-weight:300;">🛒</span></a>
+        </div>
+    </header>
+
+    <!-- Valeurs / accroche -->
+    <div class="values-grid">
+        <div class="value-item">
+            <i class="fas fa-arrow-right"></i>
+            <div><strong>直 · Direct de la source</strong><br>Seki, Tokyo, Kyoto. Achetés aux ateliers, sans revendeur.</div>
+        </div>
+        <div class="value-item">
+            <i class="fas fa-check-circle"></i>
+            <div><strong>選 · Sélection serrée</strong><br>Chaque pièce choisie et tenue à l'usage. Rien au hasard.</div>
+        </div>
+        <div class="value-item">
+            <i class="fas fa-tag"></i>
+            <div><strong>安 · Prix honnête</strong><br>Le juste prix, affiché clair. Aucune marge dissimulée.</div>
+        </div>
+    </div>
+
+    <!-- Petit texte "Des objets bien faits..." -->
+    <p style="font-size:1.05rem; margin-bottom:0.5rem; max-width:700px;">
+        <span style="font-weight:350;">Des objets bien faits, choisis un à un, venus directement du Japon.</span><br>
+        Couteaux, céramique, papier washi. Sélectionnés chez les artisans, sans intermédiaire ni marge cachée.
+    </p>
+    <div style="margin: 0.25rem 0 1.8rem;">
+        <a href="#" style="color:#a67c52; text-decoration:none; font-weight:450;">Voir le catalogue →</a>
+    </div>
+
+    <!-- Catalogue mini -->
+    <div class="section-title">
+        <span>Le catalogue · 品揃え</span>
+        <a href="#"><i class="fas fa-file-csv"></i> Importer le catalogue (CSV)</a>
+    </div>
+
+    <div class="catalog-grid">
+        <div class="catalog-card">
+            <span class="emoji-big">🔪</span>
+            <h4>Couteaux</h4>
+            <div class="origin">Seki · forge</div>
+            <span class="tag">lames main</span>
+        </div>
+        <div class="catalog-card">
+            <span class="emoji-big">🍶</span>
+            <h4>Céramique</h4>
+            <div class="origin">Kyoto · Tokyo</div>
+            <span class="tag">bols & théières</span>
+        </div>
+        <div class="catalog-card">
+            <span class="emoji-big">📜</span>
+            <h4>Papier washi</h4>
+            <div class="origin">Kyoto · déco</div>
+            <span class="tag">traditionnel</span>
+        </div>
+        <div class="catalog-card">
+            <span class="emoji-big">🏺</span>
+            <h4>Ustensiles</h4>
+            <div class="origin">Tokyo · cuisine</div>
+            <span class="tag">bambou, bois</span>
+        </div>
+    </div>
+
+    <!-- Panier (vide) -->
+    <div class="cart-panel">
+        <div class="cart-empty">
+            <i class="fas fa-shopping-basket"></i>
+            <div>
+                <div style="font-weight:450;">Panier · 籠</div>
+                <div style="font-size:0.9rem; color:#3d352e;">Votre panier est vide.</div>
+                <div style="font-size:0.8rem; color:#7f6e5d; margin-top:0.2rem;">
+                    <i class="fas fa-plus-circle" style="color:#a67c52;"></i> Ajoutez 50€ pour la livraison offerte
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:2rem; flex-wrap:wrap;">
+            <div class="cart-total">SOUS-TOTAL <span style="font-weight:600;">0€</span></div>
+            <a href="#" class="btn-whatsapp">
+                <i class="fab fa-whatsapp"></i> Commander via WhatsApp
+            </a>
+        </div>
+    </div>
+
+    <!-- Pied / villes -->
+    <div class="footer-note">
+        <div class="city-badge">
+            <span>灯 LUMIK</span>
+            <span>SEKI</span>
+            <span>TOKYO</span>
+            <span>KYOTO</span>
+        </div>
+        <div>Artisanat japonais, direct de l'atelier.</div>
+    </div>
+
+</div>
+<!-- fin container -->
+</body>
+</html>
