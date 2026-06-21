@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>灯 LUMIK — Artisanat japonais, direct de la source</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --serif:'Shippori Mincho', serif;
+    --sans:'Zen Kaku Gothic New', system-ui, sans-serif;
+    /* base — laque brune + vermillon */
+    --washi:#F4F1E9; --sumi:#1C1A17; --urushi:#8B6B47; --shu:#C0392B;
+    --border:#E2DDD0; --muted:#857F73; --card:#FBFAF6;
+  }
+  html[data-theme="indigo"]{ --washi:#EFEEE8; --sumi:#17263D; --urushi:#3C5A82; --shu:#2D4F8A; --border:#DAD8CE; --muted:#7C7E84; --card:#FAFAF5; }
+  html[data-theme="vert"]{ --washi:#F1F0E5; --sumi:#222A1C; --urushi:#6E7C53; --shu:#5E7137; --border:#DEDDCE; --muted:#82806F; --card:#FAF9F0; }
+  html[data-theme="sumi"]{ --washi:#161410; --sumi:#EFE9DC; --urushi:#C9A86A; --shu:#D46A53; --border:#322D24; --muted:#9A9384; --card:#211D16; }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;background:var(--washi);color:var(--sumi);font-family:var(--sans);line-height:1.6;}
+  body{overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--shu);color:#fff;}
+
+  #banner{background:var(--sumi);color:#F4F1E9;text-align:center;font-size:11px;letter-spacing:.14em;padding:9px 14px;text-transform:uppercase;}
+
+  #nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
+       padding:14px 18px;background:rgba(244,241,233,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);}
+  .brand{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.04em;display:flex;align-items:center;gap:7px;}
+  .brand .lamp{color:var(--shu);}
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .nav-links{display:flex;gap:18px;font-size:12.5px;letter-spacing:.03em;}
+  .nav-links a{color:var(--muted);transition:color .2s;}
+  .nav-links a:hover{color:var(--sumi);}
+  .nav-ico{cursor:pointer;font-size:18px;line-height:1;position:relative;background:none;border:none;padding:0;}
+  #cartCount{position:absolute;top:-7px;right:-9px;background:var(--shu);color:#fff;font-family:var(--sans);
+             font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+
+  #hero{position:relative;padding:78px 22px 88px;text-align:center;overflow:hidden;}
+  #hero::before{content:"";position:absolute;top:32px;left:50%;transform:translateX(-50%);
+                width:300px;height:300px;border-radius:50%;
+                background:radial-gradient(circle, rgba(192,57,43,.16), rgba(139,107,71,.06) 45%, transparent 70%);filter:blur(6px);z-index:0;}
+  .hero-lamp{position:relative;z-index:1;font-family:var(--serif);font-size:62px;line-height:1;margin-bottom:6px;text-shadow:0 2px 30px rgba(192,57,43,.25);}
+  .eyebrow{position:relative;z-index:1;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--shu);margin:18px 0 14px;font-weight:700;}
+  #hero h1{position:relative;z-index:1;font-family:var(--serif);font-weight:600;font-size:34px;line-height:1.3;margin:0 auto;max-width:560px;}
+  #hero p.sub{position:relative;z-index:1;color:var(--muted);max-width:440px;margin:18px auto 0;font-size:14.5px;}
+  .hero-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:9px;margin-top:30px;
+            background:var(--sumi);color:var(--washi);border:none;padding:15px 30px;font-family:var(--sans);
+            font-size:13px;font-weight:500;letter-spacing:.05em;cursor:pointer;border-radius:2px;transition:transform .15s, background .2s;}
+  .hero-cta:hover{background:var(--shu);transform:translateY(-2px);}
+  .hero-cta .arr{transition:transform .2s;}
+  .hero-cta:hover .arr{transform:translateX(3px);}
+  .tate{position:absolute;top:90px;right:16px;z-index:1;writing-mode:vertical-rl;font-family:var(--serif);font-size:13px;letter-spacing:.32em;color:var(--muted);}
+
+  #pillars{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--card);}
+  .pillar{padding:34px 16px;text-align:center;border-right:1px solid var(--border);}
+  .pillar:last-child{border-right:none;}
+  .pillar .kj{font-family:var(--serif);font-size:30px;color:var(--shu);line-height:1;}
+  .pillar .pt{font-size:12.5px;font-weight:700;margin:12px 0 6px;}
+  .pillar .pd{font-size:11px;color:var(--muted);line-height:1.55;}
+
+  #cat{padding:54px 18px 60px;}
+  .cat-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px;}
+  .cat-head h2{font-family:var(--serif);font-weight:600;font-size:24px;margin:0;}
+  .cat-head .ct-jp{font-family:var(--serif);font-size:13px;color:var(--muted);letter-spacing:.2em;}
+  #status{font-size:12px;color:var(--muted);min-height:18px;margin-bottom:20px;}
+  #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;}
+  .card{background:var(--card);border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s, transform .2s, box-shadow .2s;}
+  .card:hover{border-color:var(--urushi);transform:translateY(-3px);box-shadow:0 8px 22px rgba(28,26,23,.07);}
+  .card-img{aspect-ratio:1;background:linear-gradient(150deg,#EFEAE0,#F8F5EF);display:flex;align-items:center;justify-content:center;font-size:46px;position:relative;}
+  .card-img::after{content:"";position:absolute;inset:0;box-shadow:inset 0 -1px 0 var(--border);}
+  .card-body{padding:13px 13px 14px;display:flex;flex-direction:column;flex:1;}
+  .card-name{font-size:12.5px;font-weight:500;line-height:1.35;margin-bottom:auto;}
+  .card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:12px;}
+  .card-price{font-family:var(--serif);font-weight:700;font-size:16px;}
+  .card-add{background:none;border:1px solid var(--sumi);color:var(--sumi);width:34px;height:34px;border-radius:50%;
+            font-size:18px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .18s;flex-shrink:0;}
+  .card-add:hover{background:var(--sumi);color:var(--washi);}
+
+  footer{background:var(--sumi);color:#C9C3B6;padding:40px 22px 46px;text-align:center;}
+  footer .f-lamp{font-family:var(--serif);font-size:26px;color:#fff;margin-bottom:14px;}
+  footer .f-lamp span{color:var(--shu);}
+  footer .f-line{font-size:12px;}
+  footer .f-cities{font-size:11px;color:#8C857A;margin-top:10px;}
+
+  #overlay{position:fixed;inset:0;background:rgba(28,26,23,.4);z-index:90;opacity:0;pointer-events:none;transition:opacity .3s;}
+  #overlay.open{opacity:1;pointer-events:all;}
+  #drawer{position:fixed;top:0;right:0;height:100dvh;width:360px;max-width:88vw;background:var(--washi);z-index:100;
+          border-left:1px solid var(--border);transform:translateX(100%);transition:transform .32s cubic-bezier(.4,0,.2,1);
+          display:flex;flex-direction:column;box-shadow:-6px 0 30px rgba(0,0,0,.12);}
+  #drawer.open{transform:translateX(0);}
+  .d-head{display:flex;align-items:center;justify-content:space-between;padding:18px;border-bottom:1px solid var(--border);}
+  .d-head .t{font-family:var(--serif);font-size:17px;font-weight:600;}
+  .d-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--muted);line-height:1;}
+  #progress{padding:13px 18px;font-size:12px;border-bottom:1px solid var(--border);background:var(--card);}
+  #progBar{height:4px;background:var(--border);border-radius:2px;margin-top:8px;overflow:hidden;}
+  #progFill{height:100%;width:0;background:var(--shu);transition:width .3s;}
+  #items{flex:1;overflow-y:auto;padding:8px 18px;}
+  .empty{color:var(--muted);font-size:13px;text-align:center;padding:50px 10px;}
+  .row{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);}
+  .row .ico{width:44px;height:44px;background:#EFEAE0;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+  .row .meta{flex:1;min-width:0;}
+  .row .rn{font-size:12.5px;line-height:1.3;}
+  .row .rp{font-family:var(--serif);font-size:13px;color:var(--urushi);margin-top:3px;}
+  .qty{display:flex;align-items:center;gap:6px;}
+  .qty button{width:24px;height:24px;border:1px solid var(--border);background:var(--card);cursor:pointer;font-size:14px;line-height:1;border-radius:3px;}
+  .qty span{font-size:12px;min-width:16px;text-align:center;}
+  .d-foot{border-top:1px solid var(--border);padding:16px 18px 20px;background:var(--card);}
+  .d-total{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px;}
+  .d-total .tl{font-size:12px;color:var(--muted);letter-spacing:.04em;}
+  .d-total .tv{font-family:var(--serif);font-size:22px;font-weight:700;}
+  #checkout{width:100%;background:var(--sumi);color:var(--washi);border:none;padding:15px;font-family:var(--sans);
+            font-size:13px;font-weight:500;letter-spacing:.05em;cursor:pointer;border-radius:2px;transition:background .2s;}
+  #checkout:hover{background:var(--shu);}
+
+  @media(max-width:560px){
+    #pillars{grid-template-columns:1fr;}
+    .pillar{border-right:none;border-bottom:1px solid var(--border);}
+    .pillar:last-child{border-bottom:none;}
+    #grid{grid-template-columns:repeat(2,1fr);gap:12px;}
+    #hero h1{font-size:29px;}
+    .tate{display:none;}
+    .guarantees{grid-template-columns:repeat(2,1fr);}
+    .guar:nth-child(2){border-right:none;}
+    .guar:nth-child(1),.guar:nth-child(2){border-bottom:1px solid var(--border);}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .page{display:none;}
+  .page.active{display:block;}
+
+  .sec{padding:56px 18px;}
+  .sec-head{text-align:center;margin-bottom:30px;}
+  .sec-head .jp{font-family:var(--serif);font-size:11px;letter-spacing:.3em;color:var(--shu);text-transform:uppercase;font-weight:700;}
+  .sec-head h2{font-family:var(--serif);font-weight:600;font-size:25px;margin:9px 0 0;}
+  .sec-head p{color:var(--muted);font-size:13.5px;max-width:420px;margin:11px auto 0;}
+  .mini-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:16px;max-width:690px;margin:0 auto;}
+  .sec-cta{text-align:center;margin-top:32px;}
+
+  .origins{background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:50px 18px;}
+  .origins .sec-head{margin-bottom:22px;}
+  .origin{max-width:560px;margin:0 auto;padding:26px 4px;border-bottom:1px solid var(--border);display:flex;gap:22px;align-items:flex-start;}
+  .origin:last-child{border-bottom:none;}
+  .origin .ok{font-family:var(--serif);font-size:42px;color:var(--shu);line-height:.9;flex-shrink:0;}
+  .origin .otitle{font-family:var(--serif);font-size:17px;font-weight:600;margin-bottom:5px;}
+  .origin .odesc{font-size:13px;color:var(--muted);line-height:1.65;}
+
+  .reviews{text-align:center;}
+  .stars{font-size:21px;color:var(--shu);letter-spacing:4px;}
+  .rscore{font-family:var(--serif);font-size:13.5px;color:var(--muted);margin-top:9px;}
+  .rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;max-width:720px;margin:28px auto 0;}
+  .rcard{border:1px solid var(--border);background:var(--card);padding:18px;text-align:left;}
+  .rcard .rq{font-family:var(--serif);font-size:14px;line-height:1.6;}
+  .rcard .ra{font-size:11.5px;color:var(--muted);margin-top:11px;letter-spacing:.04em;}
+
+  .guarantees{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--border);background:var(--card);}
+  .guar{padding:26px 14px;text-align:center;border-right:1px solid var(--border);}
+  .guar:last-child{border-right:none;}
+  .guar .gi{font-size:23px;}
+  .guar .gt{font-size:11.5px;font-weight:700;margin-top:9px;}
+  .guar .gd{font-size:10.5px;color:var(--muted);margin-top:3px;line-height:1.5;}
+
+  .final{text-align:center;padding:62px 22px;}
+  .final .fc-jp{font-family:var(--serif);font-size:36px;color:var(--shu);line-height:1;}
+  .final h2{font-family:var(--serif);font-weight:600;font-size:25px;margin:16px 0 24px;}
+
+  .geo-sec{padding:54px 18px;max-width:680px;margin:0 auto;}
+  .geo-sec h3{font-family:var(--serif);font-size:19px;font-weight:600;margin:0 0 14px;}
+  .geo-block{border-left:3px solid var(--shu);background:var(--card);padding:16px 20px;border-radius:0 8px 8px 0;}
+  .geo-block p{margin:0;font-size:14px;color:var(--muted);line-height:1.7;}
+  .cat-top{display:flex;align-items:center;gap:14px;padding:18px 18px 0;}
+  .back-btn{background:none;border:1px solid var(--border);color:var(--muted);font-family:var(--sans);
+            font-size:12px;letter-spacing:.04em;padding:8px 14px;border-radius:2px;cursor:pointer;transition:all .2s;}
+  .back-btn:hover{border-color:var(--urushi);color:var(--sumi);}
+
+  /* overrides thème sombre */
+  html[data-theme="sumi"] #banner{background:#0E0C09;color:var(--sumi);}
+  html[data-theme="sumi"] #nav{background:rgba(22,20,16,.85);}
+  html[data-theme="sumi"] footer{background:#0E0C09;color:#A89F8E;}
+  html[data-theme="sumi"] .hero-cta,html[data-theme="sumi"] #checkout{background:var(--shu);color:#161410;}
+  html[data-theme="sumi"] .hero-cta:hover,html[data-theme="sumi"] #checkout:hover{background:#E2805F;}
+  html[data-theme="sumi"] .card-img{background:linear-gradient(150deg,#221E16,#1A1711);}
+  html[data-theme="sumi"] .row .ico{background:#2A251C;}
+</style>
+
+<!-- ░░ Zoom photo produit — styles (additif) ░░ -->
+<style>
+  .card-img{cursor:zoom-in;}
+  .card-img::before{content:'⤢';position:absolute;bottom:7px;right:7px;width:24px;height:24px;border-radius:50%;
+            background:rgba(28,26,23,.55);color:#fff;font-size:13px;display:flex;align-items:center;justify-content:center;
+            opacity:0;transition:opacity .2s;pointer-events:none;z-index:2;}
+  .card:hover .card-img::before{opacity:1;}
+  #lumik-lb{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:24px;
+            background:rgba(20,16,12,.72);backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .25s;}
+  #lumik-lb.open{opacity:1;pointer-events:auto;}
+  #lumik-lb .llb-card{background:var(--card);border:1px solid var(--border);max-width:420px;width:100%;overflow:hidden;
+            display:flex;flex-direction:column;transform:scale(.96);transition:transform .25s;box-shadow:0 20px 60px rgba(0,0,0,.4);}
+  #lumik-lb.open .llb-card{transform:scale(1);}
+  #lumik-lb .llb-visual{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:150px;position:relative;
+            background:linear-gradient(150deg,#EFEAE0,#F8F5EF);}
+  #lumik-lb .llb-visual img{width:100%;height:100%;object-fit:cover;display:block;}
+  #lumik-lb .llb-close{position:absolute;top:12px;right:12px;width:34px;height:34px;border-radius:50%;border:none;
+            background:rgba(20,16,12,.45);color:#fff;font-size:17px;line-height:1;cursor:pointer;
+            display:flex;align-items:center;justify-content:center;}
+  #lumik-lb .llb-body{padding:18px 20px 22px;}
+  #lumik-lb .llb-name{font-family:var(--serif);font-size:18px;font-weight:600;line-height:1.3;color:var(--sumi);}
+  #lumik-lb .llb-foot{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px;}
+  #lumik-lb .llb-price{font-family:var(--serif);font-weight:700;font-size:22px;color:var(--sumi);}
+  #lumik-lb .llb-add{background:var(--sumi);color:var(--washi);border:none;padding:12px 22px;font-family:var(--sans);
+            font-size:13px;font-weight:500;letter-spacing:.04em;cursor:pointer;border-radius:2px;transition:background .2s;}
+  #lumik-lb .llb-add:hover{background:var(--shu);}
+  html[data-theme="sumi"] #lumik-lb .llb-visual{background:linear-gradient(150deg,#221E16,#1A1711);}
+  html[data-theme="sumi"] #lumik-lb .llb-add{background:var(--shu);color:#161410;}
+  html[data-theme="sumi"] #lumik-lb .llb-add:hover{background:#E2805F;}
+  @media(prefers-reduced-motion:reduce){#lumik-lb,#lumik-lb .llb-card{transition:none;}}
+</style>
+<!-- ===== SEO / méta (remplace lumik.fr par ton domaine réel) ===== -->
+<meta name="description" content="Couteaux de Seki, céramique et papier washi sourcés directement chez les ateliers du Japon — sans intermédiaire ni marge cachée. Livraison offerte dès 50€.">
+<link rel="canonical" href="https://lumik.fr/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lumik">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="灯 LUMIK — Artisanat japonais, direct de la source">
+<meta property="og:description" content="Couteaux de Seki, céramique, papier washi. Achetés à l'atelier, sans intermédiaire.">
+<meta property="og:url" content="https://lumik.fr/">
+<meta property="og:image" content="https://lumik.fr/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- ===== JSON-LD statique (rendu serveur, pas injecté en JS) ===== -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"Organization",
+      "@id":"https://lumik.fr/#organization",
+      "name":"Lumik",
+      "url":"https://lumik.fr",
+      "logo":{"@type":"ImageObject","url":"https://lumik.fr/logo.png","width":512,"height":512},
+      "description":"Objets artisanaux japonais sourcés directement chez les ateliers de Seki, Tokyo et Kyoto, sans intermédiaire ni marge cachée.",
+      "slogan":"Direct de la source",
+      "knowsAbout":["couteaux japonais","coutellerie de Seki","céramique japonaise","papier washi","artisanat japonais"],
+      "contactPoint":{"@type":"ContactPoint","contactType":"customer support","availableLanguage":["French"]},
+      "sameAs":["https://www.instagram.com/lumik","https://www.youtube.com/@lumik"]
+    },
+    {
+      "@type":"WebSite",
+      "@id":"https://lumik.fr/#website",
+      "url":"https://lumik.fr",
+      "name":"Lumik",
+      "publisher":{"@id":"https://lumik.fr/#organization"},
+      "inLanguage":"fr-FR",
+      "potentialAction":{
+        "@type":"SearchAction",
+        "target":{"@type":"EntryPoint","urlTemplate":"https://lumik.fr/catalogue?q={search_term_string}"},
+        "query-input":"required name=search_term_string"
+      }
+    },
+    {
+      "@type":"BreadcrumbList",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Accueil","item":"https://lumik.fr/"},
+        {"@type":"ListItem","position":2,"name":"Catalogue","item":"https://lumik.fr/catalogue"}
+      ]
+    },
+    {
+      "@type":"Product",
+      "@id":"https://lumik.fr/couteau-santoku-seki/#product",
+      "name":"Couteau Santoku Seki",
+      "image":["https://lumik.fr/img/santoku.jpg"],
+      "description":"Couteau Santoku forgé à Seki, capitale historique de la coutellerie japonaise. Acheté directement à l'atelier, sans intermédiaire.",
+      "category":"Couteaux de cuisine japonais",
+      "countryOfOrigin":"JP",
+      "brand":{"@type":"Brand","name":"Lumik"},
+      "offers":{
+        "@type":"Offer",
+        "url":"https://lumik.fr/couteau-santoku-seki",
+        "priceCurrency":"EUR","price":"52.00",
+        "availability":"https://schema.org/InStock",
+        "itemCondition":"https://schema.org/NewCondition",
+        "seller":{"@id":"https://lumik.fr/#organization"},
+        "hasMerchantReturnPolicy":{
+          "@type":"MerchantReturnPolicy","applicableCountry":"FR",
+          "returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",
+          "merchantReturnDays":14,
+          "returnMethod":"https://schema.org/ReturnByMail",
+          "returnFees":"https://schema.org/FreeReturn"
+        },
+        "shippingDetails":{
+          "@type":"OfferShippingDetails",
+          "shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"EUR"},
+          "shippingDestination":{"@type":"DefinedRegion","addressCountry":"FR"},
+          "deliveryTime":{"@type":"ShippingDeliveryTime",
+            "handlingTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":2,"unitCode":"DAY"},
+            "transitTime":{"@type":"QuantitativeValue","minValue":5,"maxValue":9,"unitCode":"DAY"}}
+        }
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div id="banner">Livraison offerte dès 50€ · Direct des ateliers du Japon</div>
+
+<nav id="nav">
+  <div class="brand"><span class="lamp">灯</span> LUMIK</div>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#/catalogue">Catalogue</a>
+      <a href="#/">La maison</a>
+    </div>
+    <button class="nav-ico" onclick="toggleDrawer()" title="Panier">🛒<span id="cartCount" style="display:none">0</span></button>
+  </div>
+</nav>
+<input type="file" id="csvInput" accept=".csv,text/csv" style="display:none" onchange="importCSV(event)">
+
+<main id="home" class="page">
+<section id="hero">
+  <div class="tate">灯をともす</div>
+  <div class="hero-lamp">灯</div>
+  <div class="eyebrow">Seki · Tokyo · Kyoto</div>
+  <h1>Des objets bien faits, choisis un à un, venus directement du Japon.</h1>
+  <p class="sub">Couteaux, céramique, papier washi. Sélectionnés chez les artisans, sans intermédiaire ni marge cachée.</p>
+  <button class="hero-cta" onclick="location.hash='#/catalogue'">Voir le catalogue <span class="arr">→</span></button>
+</section>
+
+<section id="pillars">
+  <div class="pillar"><div class="kj">直</div><div class="pt">Direct de la source</div><div class="pd">Seki, Tokyo, Kyoto. Achetés aux ateliers, sans revendeur.</div></div>
+  <div class="pillar"><div class="kj">選</div><div class="pt">Sélection serrée</div><div class="pd">Chaque pièce choisie et tenue à l'usage. Rien au hasard.</div></div>
+  <div class="pillar"><div class="kj">安</div><div class="pt">Prix honnête</div><div class="pd">Le juste prix, affiché clair. Aucune marge dissimulée.</div></div>
+</section>
+
+<section class="sec featured">
+  <div class="sec-head"><span class="jp">人気</span><h2>Les plus choisis</h2><p>Trois pièces qui partent en premier. Ajoutez-les, le panier vous suit jusqu'au catalogue.</p></div>
+  <div class="mini-grid" id="featured"></div>
+  <div class="sec-cta"><button class="hero-cta" onclick="location.hash='#/catalogue'">Tout le catalogue <span class="arr">→</span></button></div>
+</section>
+
+<section class="origins">
+  <div class="sec-head"><span class="jp">産地</span><h2>D'où ça vient</h2></div>
+  <div class="origin"><div class="ok">関</div><div><div class="otitle">Seki — la ville des lames</div><div class="odesc">700 ans de forge. Nos couteaux sortent des mêmes ateliers que ceux des chefs, achetés à la source.</div></div></div>
+  <div class="origin"><div class="ok">東</div><div><div class="otitle">Tokyo — les ustensiles du quotidien</div><div class="odesc">Les outils que les cuisines japonaises utilisent vraiment. Pensés pour durer, pas pour la vitrine.</div></div></div>
+  <div class="origin"><div class="ok">京</div><div><div class="otitle">Kyoto — la déco et le papier</div><div class="odesc">Céramique, washi, laque. La main de l'artisan se voit, et c'est ce qu'on cherche.</div></div></div>
+</section>
+
+<section class="geo-sec">
+  <h3>Pourquoi un couteau de Seki coûte-t-il plus cher ?</h3>
+  <div class="geo-block">
+    <p>Seki, dans la préfecture de Gifu, forge des lames depuis plus de sept siècles : c'est la capitale historique de la coutellerie japonaise. Un couteau qui en vient associe un acier dur à une géométrie fine, qui tient le fil plus longtemps qu'une lame européenne standard. Lumik achète ces couteaux directement à l'atelier qui les forge, sans grossiste ni importateur intermédiaire. Concrètement, cela retire deux à trois marges de la chaîne : le prix payé correspond au travail de l'artisan et à la logistique, pas à une cascade de revendeurs. La contrepartie pour l'acheteur est un délai d'expédition depuis le Japon de cinq à neuf jours, et un entretien simple — sécher la lame après usage — pour préserver le tranchant dans le temps.</p>
+  </div>
+</section>
+
+<section class="sec reviews">
+  <div class="stars">★★★★★</div>
+  <div class="rscore">4,9 / 5 · plus de 1 200 commandes livrées</div>
+  <div class="rgrid">
+    <div class="rcard"><div class="rq">« Le couteau Seki coupe mieux que tout ce que j'avais. On sent la différence dès la première tomate. »</div><div class="ra">— Camille R., Lyon</div></div>
+    <div class="rcard"><div class="rq">« Emballage soigné, livraison rapide, et les prix sont honnêtes pour de l'artisanat direct. »</div><div class="ra">— Thomas G., Bruxelles</div></div>
+    <div class="rcard"><div class="rq">« Le bol Arita est encore plus beau en vrai. J'ai recommandé deux fois depuis. »</div><div class="ra">— Léa M., Nantes</div></div>
+  </div>
+</section>
+
+<section class="guarantees">
+  <div class="guar"><div class="gi">🚚</div><div class="gt">Livraison offerte</div><div class="gd">Dès 50€ d'achat</div></div>
+  <div class="guar"><div class="gi">🔒</div><div class="gt">Paiement sécurisé</div><div class="gd">Commande via WhatsApp</div></div>
+  <div class="guar"><div class="gi">🏯</div><div class="gt">Direct atelier</div><div class="gd">Sans intermédiaire</div></div>
+  <div class="guar"><div class="gi">↩️</div><div class="gt">Retours 14 jours</div><div class="gd">Satisfait ou remboursé</div></div>
+</section>
+
+<section class="final">
+  <div class="fc-jp">灯</div>
+  <h2>Un bel objet, choisi pour durer.</h2>
+  <button class="hero-cta" onclick="location.hash='#/catalogue'">Voir le catalogue <span class="arr">→</span></button>
+</section>
+</main>
+
+<main id="catalogue" class="page">
+<div class="cat-top"><button class="back-btn" onclick="location.hash='#/'">← Accueil</button></div>
+<section id="cat">
+  <div class="cat-head"><h2>Le catalogue</h2><span class="ct-jp">品揃え</span></div>
+  <div id="status"></div>
+  <div id="grid"></div>
+</section>
+</main>
+
+<main id="confirmation" class="page">
+<div class="cat-top"><button class="back-btn" onclick="location.hash='#/'">← Accueil</button></div>
+<section id="conf">
+  <div class="cat-head"><h2>Commande confirmée</h2><span class="ct-jp">注文</span></div>
+  <div id="conf-content">
+    <p>Merci pour votre commande ! Un email de confirmation a été envoyé.</p>
+    <div id="conf-items"></div>
+    <div id="conf-total" style="margin-top:20px;font-size:18px;font-weight:700;"></div>
+    <button class="hero-cta" onclick="location.hash='#/catalogue'" style="margin-top:30px;">Continuer vos achats →</button>
+  </div>
+</section>
+</main>
+
+<main id="admin" class="page" style="display:none;">
+<div class="cat-top"><button class="back-btn" onclick="location.hash='#/'">← Accueil</button></div>
+<section id="admin-sec" style="padding:30px 20px;max-width:800px;margin:0 auto;">
+  <div class="cat-head"><h2>Tableau de bord</h2><span class="ct-jp">管理</span></div>
+  <div id="admin-content">
+    <p>Chargement des commandes...</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="f-lamp"><span>灯</span> LUMIK</div>
+  <div class="f-line">Artisanat japonais, direct de l'atelier.</div>
+  <div class="f-cities">Seki, couteaux · Tokyo, ustensiles · Kyoto, déco &amp; papier</div>
+  <button onclick="document.getElementById('csvInput').click()" style="margin-top:18px;background:none;border:1px solid #4a463f;color:#8C857A;font-family:var(--sans);font-size:11px;letter-spacing:.05em;padding:8px 16px;border-radius:2px;cursor:pointer;">Importer le catalogue (CSV)</button>
+</footer>
+
+<div id="overlay" onclick="toggleDrawer()"></div>
+<aside id="drawer" aria-label="Panier">
+  <div class="d-head"><span class="t">Panier 籠</span><button class="d-close" onclick="toggleDrawer()" aria-label="Fermer">✕</button></div>
+  <div id="progress"><span id="progText">Ajoutez 50€ pour la livraison offerte</span><div id="progBar"><div id="progFill"></div></div></div>
+  <div id="items"><div class="empty">Votre panier est vide.</div></div>
+  <div class="d-foot">
+    <div class="d-total"><span class="tl">SOUS-TOTAL</span><span class="tv" id="total">0€</span></div>
+    <button id="checkout" onclick="checkout()">Commander via WhatsApp</button>
+  </div>
+</aside>
+
+<script>
+  // ───── THÈME : change le mot, ou ajoute ?theme=vert à l'URL ─────
+  const THEME = 'sumi'; // 'base' | 'indigo' | 'vert' | 'sumi'
+  (function(){
+    const p = new URLSearchParams(location.search).get('theme');
+    const t = p || THEME;
+    if(t && t!=='base') document.documentElement.dataset.theme = t;
+  })();
+
+  const SEUIL = 50;
+  const WHATSAPP = '33759876727';
+  const LEMON_STORE_ID = 'TBD'; // À remplacer par ton Store ID
+  const LEMON_PRODUCT_ID = 'TBD'; // À remplacer par ton Product ID
+  const KEY_PROD = 'lumik_produits';
+  const KEY_CART = 'lumik_panier';
+
+  const produitsDefaut = [
+    {id:1,nom:'Couteau Seki, petite lame',emoji:'🔪',prix_vente_eur:24},
+    {id:2,nom:'Épluche-légumes Tokyo',emoji:'🥕',prix_vente_eur:12},
+    {id:3,nom:'Baguettes hashi Kyoto',emoji:'🥢',prix_vente_eur:8},
+    {id:4,nom:'Bol Arita céramique',emoji:'🍵',prix_vente_eur:18},
+    {id:5,nom:'Papier washi artisanal',emoji:'📜',prix_vente_eur:6},
+    {id:6,nom:'Couteau chef Seki, long',emoji:'🔪',prix_vente_eur:45},
+    {id:7,nom:'Ciseaux de cuisine Seki',emoji:'✂️',prix_vente_eur:14},
+    {id:8,nom:'Plateau laqué rouge',emoji:'🏮',prix_vente_eur:32},
+    {id:9,nom:'Mortier suribachi',emoji:'🥣',prix_vente_eur:22},
+    {id:10,nom:'Tenugui coton imprimé',emoji:'🧣',prix_vente_eur:11},
+    {id:11,nom:'Couteau Santoku Seki',emoji:'🔪',prix_vente_eur:52},
+    {id:12,nom:'Théière Tetsubin fonte',emoji:'🫖',prix_vente_eur:48},
+    {id:13,nom:'Tasse à thé Hagi',emoji:'🍵',prix_vente_eur:16},
+    {id:14,nom:'Planche à découper hinoki',emoji:'🪵',prix_vente_eur:28},
+    {id:15,nom:'Carnet papier washi',emoji:'📓',prix_vente_eur:9},
+    {id:16,nom:'Éventail sensu bambou',emoji:'🪭',prix_vente_eur:13},
+    {id:17,nom:'Bol à riz Mino bleu',emoji:'🍚',prix_vente_eur:15},
+    {id:18,nom:'Aiguiseur pierre à eau',emoji:'🪨',prix_vente_eur:34},
+    {id:19,nom:'Set de baguettes + repose',emoji:'🥢',prix_vente_eur:19},
+    {id:20,nom:'Furoshiki tissu noué',emoji:'🎁',prix_vente_eur:14}
+  ];
+
+  let produits = load(KEY_PROD) || produitsDefaut;
+  let panier = load(KEY_CART) || [];
+
+  function load(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } }
+  function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+  const esc = s => { const d=document.createElement('div'); d.textContent=s; return d.innerHTML; };
+  const prixDe = p => Number(p.prix_vente_eur)||0;
+
+  function renderCardImg(p){
+    if(p.img) return `<img src="${p.img}" alt="${esc(p.nom)}" style="width:100%;height:100%;object-fit:cover;background:#f0f0f0;">`;
+    return p.emoji||'📦';
+  }
+
+  function renderGrid(){
+    document.getElementById('grid').innerHTML = produits.map(p=>`
+      <div class="card">
+        <div class="card-img">${renderCardImg(p)}</div>
+        <div class="card-body">
+          <div class="card-name">${esc(p.nom)}</div>
+          <div class="card-foot">
+            <span class="card-price">${prixDe(p)}€</span>
+            <button class="card-add" onclick="add(${p.id})" aria-label="Ajouter">+</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function add(id){ panier.push(id); save(KEY_CART,panier); updateCart(); }
+  function changeQty(id,d){
+    if(d>0) panier.push(id);
+    else { const i=panier.indexOf(id); if(i>-1) panier.splice(i,1); }
+    save(KEY_CART,panier); updateCart();
+  }
+  function toggleDrawer(){
+    document.getElementById('drawer').classList.toggle('open');
+    document.getElementById('overlay').classList.toggle('open');
+  }
+
+  function updateCart(){
+    const count = panier.length;
+    const badge = document.getElementById('cartCount');
+    badge.textContent = count; badge.style.display = count ? 'flex' : 'none';
+
+    const grouped = {}; panier.forEach(id=>{ grouped[id]=(grouped[id]||0)+1; });
+    const items = document.getElementById('items');
+    const keys = Object.keys(grouped).filter(id=>produits.find(x=>x.id==id));
+    if(!keys.length){
+      items.innerHTML = '<div class="empty">Votre panier est vide.</div>';
+    } else {
+      items.innerHTML = keys.map(id=>{
+        const p=produits.find(x=>x.id==id), q=grouped[id];
+        return `<div class="row">
+          <div class="ico">${p.emoji||'📦'}</div>
+          <div class="meta"><div class="rn">${esc(p.nom)}</div><div class="rp">${prixDe(p)*q}€</div></div>
+          <div class="qty"><button onclick="changeQty(${id},-1)">−</button><span>${q}</span><button onclick="changeQty(${id},1)">+</button></div>
+        </div>`;
+      }).join('');
+    }
+
+    const total = panier.reduce((a,id)=>{ const p=produits.find(x=>x.id==id); return a+(p?prixDe(p):0); },0);
+    document.getElementById('total').textContent = total+'€';
+    const reste = SEUIL-total, fill=document.getElementById('progFill'), txt=document.getElementById('progText');
+    if(reste<=0){ txt.textContent='🎉 Livraison offerte débloquée'; fill.style.width='100%'; }
+    else { txt.textContent=`Encore ${reste}€ pour la livraison offerte`; fill.style.width=Math.min(100,total/SEUIL*100)+'%'; }
+  }
+
+  // Import CSV — colonnes : id,nom,emoji,prix_vente_eur (avec en-tête)
+  function importCSV(e){
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      try{
+        const lignes = ev.target.result.split(/\r?\n/).filter(l=>l.trim());
+        const entete = lignes.shift().split(',').map(h=>h.trim().toLowerCase());
+        const iId=entete.indexOf('id'), iNom=entete.indexOf('nom'),
+              iEmoji=entete.indexOf('emoji'), iPrix=entete.indexOf('prix_vente_eur'),
+              iImg=entete.indexOf('img');
+        if(iNom<0||iPrix<0){ document.getElementById('status').textContent='⚠️ CSV invalide : colonnes nom et prix_vente_eur requises.'; return; }
+        const nouv = lignes.map((l,k)=>{
+          const c=l.split(',');
+          return {
+            id: iId>=0 && c[iId] ? Number(c[iId]) : k+1,
+            nom: (c[iNom]||'').trim(),
+            emoji: iEmoji>=0 ? (c[iEmoji]||'📦').trim() : '📦',
+            img: iImg>=0 ? (c[iImg]||'').trim() : '',
+            prix_vente_eur: Number((c[iPrix]||'0').trim())
+          };
+        }).filter(p=>p.nom);
+        if(!nouv.length){ document.getElementById('status').textContent='⚠️ Aucun produit lu dans le CSV.'; return; }
+        produits = nouv; save(KEY_PROD,produits);
+        renderGrid(); renderFeatured(); updateCart();
+        document.getElementById('status').textContent=`✅ ${produits.length} produits importés.`;
+      }catch(err){ document.getElementById('status').textContent='⚠️ Erreur de lecture du CSV.'; }
+      e.target.value='';
+    };
+    reader.readAsText(file,'UTF-8');
+  }
+
+  function checkout(){
+    if(!panier.length){ alert('Votre panier est vide.'); return; }
+    const grouped={}; panier.forEach(id=>grouped[id]=(grouped[id]||0)+1);
+    let total=0, items=[];
+    Object.keys(grouped).forEach(id=>{
+      const p=produits.find(x=>x.id==id); if(!p) return;
+      const q=grouped[id]; total+=prixDe(p)*q;
+      items.push({id:p.id, nom:p.nom, qty:q, price:prixDe(p)});
+    });
+    
+    const orderData = {items, total, ts:Date.now()};
+    
+    // Sauvegarder la commande en cours (pour la page de confirmation)
+    localStorage.setItem('lumik_checkout_pending', JSON.stringify(orderData));
+    
+    // Sauvegarder aussi dans l'historique
+    const orderId = 'lumik_order_' + Date.now();
+    localStorage.setItem(orderId, JSON.stringify(orderData));
+    
+    // Mode démo : si Lemon IDs non configurés, simuler paiement
+    if(LEMON_STORE_ID==='TBD' || LEMON_PRODUCT_ID==='TBD'){
+      // Paiement simulé : redirection confirmation
+      panier = []; save(KEY_CART, panier); updateCart(); // Clear cart
+      setTimeout(() => location.hash = '#/confirmation', 500);
+      return;
+    }
+    // Production : rediriger vers Lemon Squeezy
+    const checkoutUrl = `https://${LEMON_STORE_ID}.lemonsqueezy.com/checkout/buy/${LEMON_PRODUCT_ID}?checkout[custom][order_id]=${Date.now()}`;
+    window.location.href = checkoutUrl;
+  }
+
+  function renderFeatured(){
+    const el = document.getElementById('featured'); if(!el) return;
+    let sel = [1,6,4].map(i=>produits.find(p=>p.id===i)).filter(Boolean);
+    if(sel.length<3) sel = produits.slice(0,3);
+    el.innerHTML = sel.map(p=>`
+      <div class="card">
+        <div class="card-img">${renderCardImg(p)}</div>
+        <div class="card-body">
+          <div class="card-name">${esc(p.nom)}</div>
+          <div class="card-foot">
+            <span class="card-price">${prixDe(p)}€</span>
+            <button class="card-add" onclick="add(${p.id})" aria-label="Ajouter">+</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function route(){
+    const h = location.hash.replace(/^#/,'');
+    const isHome = !h || h === '/';
+    const isCat = (h === '/catalogue');
+    const isConf = (h === '/confirmation');
+    const isAdmin = (h === '/admin');
+    document.getElementById('home').classList.toggle('active', isHome);
+    document.getElementById('catalogue').classList.toggle('active', isCat);
+    document.getElementById('confirmation').classList.toggle('active', isConf);
+    document.getElementById('admin').style.display = isAdmin ? 'block' : 'none';
+    if(isConf) renderConfirmation();
+    if(isAdmin) renderAdmin();
+    window.scrollTo(0,0);
+  }
+  
+  function renderAdmin(){
+    const allOrders = [];
+    // Chercher toutes les commandes en localStorage
+    for(let i=0; i<localStorage.length; i++){
+      const key = localStorage.key(i);
+      if(key.startsWith('lumik_order_')){
+        try { allOrders.push(JSON.parse(localStorage.getItem(key))); } catch(e){}
+      }
+    }
+    const currentOrder = localStorage.getItem('lumik_checkout_pending');
+    if(currentOrder) try { allOrders.unshift(JSON.parse(currentOrder)); } catch(e){}
+    
+    if(!allOrders.length){ document.getElementById('admin-content').innerHTML = '<p>Aucune commande.</p>'; return; }
+    
+    const html = allOrders.map((o,i)=>`
+      <div style="border:1px solid var(--border);padding:15px;margin-bottom:12px;border-radius:3px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
+          <strong>Commande #${i+1}</strong>
+          <span style="color:var(--muted);font-size:12px;">${new Date(o.ts).toLocaleString('fr-FR')}</span>
+        </div>
+        <div style="margin-bottom:10px;">${o.items.map(it=>`
+          <div style="display:flex;justify-content:space-between;font-size:13px;">
+            <span>${esc(it.nom)} ×${it.qty}</span>
+            <span>${it.price*it.qty}€</span>
+          </div>`).join('')}</div>
+        <div style="border-top:1px solid var(--border);padding-top:8px;font-weight:700;font-size:14px;">Total : ${o.total}€</div>
+      </div>`).join('');
+    
+    document.getElementById('admin-content').innerHTML = html;
+  }
+  
+  function renderConfirmation(){
+    const data = localStorage.getItem('lumik_checkout_pending');
+    if(!data){ document.getElementById('conf-content').innerHTML='<p>Aucune commande trouvée.</p>'; return; }
+    const {items, total} = JSON.parse(data);
+    const itemsHtml = items.map(it=>`<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+      <span>${esc(it.nom)} ×${it.qty}</span><span>${it.price*it.qty}€</span></div>`).join('');
+    document.getElementById('conf-items').innerHTML = itemsHtml;
+    document.getElementById('conf-total').innerHTML = `Total : ${total}€`;
+  }
+  window.addEventListener('hashchange', route);
+
+  renderGrid();
+  renderFeatured();
+  updateCart();
+  route();
+</script>
+
+<!-- ░░ Zoom photo produit — clic délégué (modèle id/emoji) ░░ -->
+<script>
+(function(){
+  if(window.__lumikZoom) return; window.__lumikZoom = true;
+
+  var lb = document.createElement('div');
+  lb.id = 'lumik-lb';
+  lb.setAttribute('aria-label','Photo agrandie');
+  lb.innerHTML =
+    '<div class="llb-card">'+
+      '<div class="llb-visual"><button class="llb-close" type="button" aria-label="Fermer">✕</button><span class="llb-img"></span></div>'+
+      '<div class="llb-body">'+
+        '<div class="llb-name"></div>'+
+        '<div class="llb-foot"><span class="llb-price"></span><button class="llb-add" type="button">Ajouter au panier</button></div>'+
+      '</div>'+
+    '</div>';
+  document.body.appendChild(lb);
+
+  var vis = lb.querySelector('.llb-img'),
+      nm  = lb.querySelector('.llb-name'),
+      pr  = lb.querySelector('.llb-price'),
+      ad  = lb.querySelector('.llb-add');
+
+  function closeLB(){ lb.classList.remove('open'); }
+  lb.addEventListener('click', function(e){ if(e.target === lb) closeLB(); });
+  lb.querySelector('.llb-close').addEventListener('click', closeLB);
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLB(); });
+
+  function prixOf(p){ try{ return (typeof prixDe==='function') ? prixDe(p) : (Number(p.prix_vente_eur)||0); }catch(e){ return Number(p.prix_vente_eur)||0; } }
+  function findProd(id){
+    try{ return produits.find(function(p){ return String(p.id) === String(id); }); }catch(e){ return null; }
+  }
+  function openLB(id){
+    var p = findProd(id);
+    vis.innerHTML = '';
+    if(p && p.img){ var im = new Image(); im.src = p.img; im.alt = p.nom || ''; vis.appendChild(im); vis.style.fontSize='0'; }
+    else { vis.textContent = (p && p.emoji) ? p.emoji : '📦'; vis.style.fontSize=''; }
+    nm.textContent = p ? (p.nom || '') : '';
+    pr.textContent = p ? (prixOf(p) + '€') : '';
+    ad.onclick = function(){ if(typeof add === 'function' && p) add(p.id); closeLB(); };
+    lb.classList.add('open');
+  }
+
+  // clic délégué : marche pour la grille catalogue ET les « plus choisis »
+  document.addEventListener('click', function(e){
+    var img = e.target.closest && e.target.closest('.card-img');
+    if(!img) return;
+    var card = img.closest('.card'); if(!card) return;
+    var addBtn = card.querySelector('.card-add');
+    var oc = addBtn ? (addBtn.getAttribute('onclick') || '') : '';
+    var m = oc.match(/add\(\s*(\d+)\s*\)/);
+    if(!m) return;
+    e.preventDefault();
+    openLB(m[1]);
+  });
+})();
+</script>
+<!-- Lemon Squeezy integration -->
+<script src="https://app.lemonsqueezy.com/js/lemon.js" defer></script>
+</body>
+</html>
